@@ -1,0 +1,12 @@
+# c-s-rouji-
+可控制肉鸡反向Shell实现方案
+
+本次实验将基于Tcp实现一个C/S结构的应用，Client作为被控端主动连接控制端，Server作为控制端则等待肉鸡连接。具体实现方案如下：
+
+Server（控制端）
+
+Server作为控制端，我们首先要用Python的Socket模块监听本地端口，并等待被控端连接，由于我们要实现多个肉鸡的反向Shell，所以我们需要 维护连接的主机列表，并选择当前要发送命令的肉机，接下来我们就可以通过socket给指定的主机发送Shell命令了。
+
+Client（被控端）
+
+Client作为被控端，首先我们要通过Python的Socket模块连接到控制端，之后只要一直等待控制端发送Shell命令就可以了，当接收到控制端发送的命令之后，用Python的subprocess模块执行Shell命令，并将执行命令的结果用socket发送给控制端。
